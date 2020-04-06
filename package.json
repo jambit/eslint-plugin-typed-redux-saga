@@ -1,0 +1,21 @@
+{
+  "name": "@jambit/eslint-plugin-typed-redux-saga",
+  "version": "0.1.0",
+  "description": "These are eslint rules to help with typed-redux-saga",
+  "keywords": [
+    "redux-saga",
+    "typed-redux-saga",
+    "eslint-plugin"
+  ],
+  "homepage": "https://github.com/jambit/eslint-plugin-typed-redux-saga",
+  "bugs": {
+    "url": "https://github.com/jambit/eslint-plugin-typed-redux-saga/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jambit/eslint-plugin-typed-redux-saga.git"
+  },
+  "license": "MIT",
+  "author": "Santo Pfingsten (Jambit GmbH)",
+  "main": "index.js"
+}
