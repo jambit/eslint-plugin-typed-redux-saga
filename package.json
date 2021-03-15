@@ -1,6 +1,6 @@
 {
   "name": "@jambit/eslint-plugin-typed-redux-saga",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "These are eslint rules to help with typed-redux-saga",
   "keywords": [
     "redux-saga",

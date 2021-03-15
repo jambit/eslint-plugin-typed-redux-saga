@@ -32,10 +32,25 @@ module.exports = {
                 ? `${callee.object.name}.${callee.property.name}`
                 : callee.name;
         }
+        function isSagaCall(node) {
+            switch (node.type) {
+                case 'CallExpression':
+                    return !!typedNames[getCalleeKey(node.callee)];
+                // Ternary expression might be nested calls
+                case 'ConditionalExpression':
+                    return (
+                        isSagaCall(node.consequent) ||
+                        isSagaCall(node.alternate)
+                    );
+                default:
+                    return false;
+            }
+        }
         return {
             ImportDefaultSpecifier(node) {
                 if (node.parent.source.value === 'typed-redux-saga') {
-                    for (const key of effectKeys) typedNames[`${node.local.name}.${key}`] = key;
+                    for (const key of effectKeys)
+                        typedNames[`${node.local.name}.${key}`] = key;
                 }
             },
             ImportSpecifier(node) {
@@ -44,14 +59,15 @@ module.exports = {
             },
             YieldExpression(node) {
                 yieldDepth += 1;
-                if (!node.argument.type === 'CallExpression') return;
-                if (!node.delegate && typedNames[getCalleeKey(node.argument.callee)]) {
+                if (!node.delegate && isSagaCall(node.argument)) {
                     context.report({
                         node,
                         message: MESSAGE,
                         fix(fixer) {
                             const sourceCode = context.getSourceCode();
-                            const fixed = sourceCode.getText(node).replace('yield', 'yield*');
+                            const fixed = sourceCode
+                                .getText(node)
+                                .replace('yield', 'yield*');
                             return fixer.replaceText(node, fixed);
                         },
                     });

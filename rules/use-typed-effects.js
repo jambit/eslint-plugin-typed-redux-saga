@@ -26,7 +26,10 @@ module.exports = {
                             const sourceCode = context.getSourceCode();
                             const fixed = sourceCode
                                 .getText(node)
-                                .replace('redux-saga/effects', 'typed-redux-saga');
+                                .replace(
+                                    'redux-saga/effects',
+                                    'typed-redux-saga'
+                                );
                             return fixer.replaceText(node, fixed);
                         },
                     });
