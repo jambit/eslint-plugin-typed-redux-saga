@@ -34,6 +34,14 @@ Keep in mind, that you don't want to run these rules in your test files, since t
 
 This rule ensures, that you import from `typed-redux-saga` instead of `redux-saga/effects`.
 
+If you want to use the [babel macro feature](https://github.com/agiledigital/typed-redux-saga#babel-macro), this rule can be configured to use `typed-redux-saga/macro` instead:
+
+```json
+"@jambit/typed-redux-saga/use-typed-effects": ["error", "macro"]
+```
+
+The second entry in the options array can be either "default" or "macro".
+
 ### @jambit/typed-redux-saga/delegate-effects
 
 This rule ensures, that you use `yield*` on effects from `typed-redux-saga`.

@@ -1,7 +1,5 @@
 'use strict';
 
-const MESSAGE = 'You should use typed-redux-saga effects';
-
 module.exports = {
     meta: {
         type: 'suggestion',
@@ -13,23 +11,34 @@ module.exports = {
             url: 'https://github.com/jambit/eslint-plugin-typed-redux-saga/',
         },
         fixable: 'code',
-        schema: [], // no options
+        schema: [
+            {
+                enum: ['default', 'macro'],
+            },
+        ],
     },
     create(context) {
+        const useMacros = context.options[0] === 'macro';
+        const targetValue = useMacros
+            ? 'typed-redux-saga/macro'
+            : 'typed-redux-saga';
+        const sourceValues = [
+            'redux-saga/effects',
+            useMacros ? 'typed-redux-saga' : 'typed-redux-saga/macro',
+        ];
+        const message = `You should use ${targetValue} for saga effects`;
+
         return {
             ImportDeclaration(node) {
-                if (node.source.value === 'redux-saga/effects') {
+                if (sourceValues.includes(node.source.value)) {
                     context.report({
                         node,
-                        message: MESSAGE,
+                        message,
                         fix(fixer) {
                             const sourceCode = context.getSourceCode();
                             const fixed = sourceCode
                                 .getText(node)
-                                .replace(
-                                    'redux-saga/effects',
-                                    'typed-redux-saga'
-                                );
+                                .replace(node.source.value, targetValue);
                             return fixer.replaceText(node, fixed);
                         },
                     });
