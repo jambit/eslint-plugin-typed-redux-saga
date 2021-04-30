@@ -1,6 +1,9 @@
 # Description
 
-These are eslint rules to help with [typed-redux-saga](https://github.com/agiledigital/typed-redux-saga)
+These are eslint rules to help with [typed-redux-saga](https://github.com/agiledigital/typed-redux-saga).
+
+It includes an auto-fix option, so you can use it to easily convert your codebase from redux-saga to typed-redux-saga!
+(As always, you should double-check if the auto-fixer did its job correctly before committing the changes!)
 
 ## How to Use
 
