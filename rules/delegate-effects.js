@@ -48,13 +48,19 @@ module.exports = {
         }
         return {
             ImportDefaultSpecifier(node) {
-                if (node.parent.source.value === 'typed-redux-saga') {
+                if (
+                    node.parent.source.value === 'typed-redux-saga' ||
+                    node.parent.source.value === 'typed-redux-saga/macro'
+                ) {
                     for (const key of effectKeys)
                         typedNames[`${node.local.name}.${key}`] = key;
                 }
             },
             ImportSpecifier(node) {
-                if (node.parent.source.value === 'typed-redux-saga')
+                if (
+                    node.parent.source.value === 'typed-redux-saga' ||
+                    node.parent.source.value === 'typed-redux-saga/macro'
+                )
                     typedNames[node.local.name] = node.imported.name;
             },
             YieldExpression(node) {
