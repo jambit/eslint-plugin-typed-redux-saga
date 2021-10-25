@@ -3,6 +3,8 @@
 const effectKeys = Object.keys(require('typed-redux-saga'));
 const MESSAGE = 'You should use yield* for all typed-redux-saga effects';
 
+const sourceValues = ['typed-redux-saga', 'typed-redux-saga/macro'];
+
 module.exports = {
     meta: {
         type: 'problem',
@@ -48,19 +50,13 @@ module.exports = {
         }
         return {
             ImportDefaultSpecifier(node) {
-                if (
-                    node.parent.source.value === 'typed-redux-saga' ||
-                    node.parent.source.value === 'typed-redux-saga/macro'
-                ) {
+                if (sourceValues.includes(node.parent.source.value)) {
                     for (const key of effectKeys)
                         typedNames[`${node.local.name}.${key}`] = key;
                 }
             },
             ImportSpecifier(node) {
-                if (
-                    node.parent.source.value === 'typed-redux-saga' ||
-                    node.parent.source.value === 'typed-redux-saga/macro'
-                )
+                if (sourceValues.includes(node.parent.source.value))
                     typedNames[node.local.name] = node.imported.name;
             },
             YieldExpression(node) {
