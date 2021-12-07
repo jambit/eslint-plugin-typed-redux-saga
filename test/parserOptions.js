@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  ecmaVersion: 6,
-  sourceType: "module",
+    ecmaVersion: 6,
+    sourceType: 'module',
 };
