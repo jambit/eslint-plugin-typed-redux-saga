@@ -1,8 +1,9 @@
 'use strict';
 
 module.exports = {
-    rules: {
-        'use-typed-effects': require('./rules/use-typed-effects'),
-        'delegate-effects': require('./rules/delegate-effects'),
-    },
+  rules: {
+    "yield-effects": require("./lib/rules/yield-effects"),
+    "use-typed-effects": require("./lib/rules/use-typed-effects"),
+    "delegate-effects": require("./lib/rules/delegate-effects"),
+  },
 };
